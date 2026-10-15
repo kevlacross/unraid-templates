@@ -28,7 +28,7 @@ with tempfile.TemporaryDirectory() as td:
  subprocess.run(['bash','-n',str(output/'start.sh')],check=True)
 print('PASS: four XML templates, release routing parity, private port layout, secret rendering, bootstrap permissions, overwrite protection, input validation and shell syntax')
 
-for f in (root.parent/"templates").glob("*.xml"):
+for f in (root.parent/"templates").glob("0*-nocturne-*.xml"):
  c=E.parse(f).getroot()
  assert c.findtext("TemplateURL")=="https://raw.githubusercontent.com/kevlacross/unraid-templates/main/templates/"+f.name
  assert c.findtext("Support")=="https://github.com/kevlacross/unraid-templates/issues"

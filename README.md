@@ -6,6 +6,7 @@ Community-maintained Unraid DockerMan templates by kevlacross.
 
 | Application | Templates | Installation |
 |---|---|---|
+| Ecowitt Share to MQTT | MQTT bridge and Home Assistant discovery | [Ecowitt setup guide](ecowitt/README.md) |
 | Nocturne | PostgreSQL, API, Web and gateway | [Nocturne setup guide](nocturne/README.md) |
 
 `templates/` holds the public Community Applications XML files, one per container. `nocturne/` holds the preparation script, database bootstrap, optional automatic updater, validation and source provenance.
@@ -18,7 +19,7 @@ For local installation without a CA listing, follow the setup guide: it generate
 
 For template, packaging and installation issues, [open an issue](https://github.com/kevlacross/unraid-templates/issues). Application bugs belong to the relevant upstream project. This repository is community packaging and is not endorsed by Nocturne, Nightscout or Unraid.
 
-The existing [Ecowitt CA repository](https://github.com/kevlacross/ecowitt-share-to-mqtt-ca) remains separate to preserve its existing listing.
+Ecowitt and Nocturne templates are consolidated here. The former Ecowitt-only template repository is retained during the CA catalog migration; the application source repository remains separate.
 
 ## Validation
 
@@ -32,4 +33,4 @@ See [validation results](nocturne/VALIDATION.md). Source and license notices are
 
 ## License
 
-AGPL-3.0-or-later for this packaging. Retain the upstream attribution in NOTICE.md. Application images are downloaded from their publishers and are not redistributed here.
+AGPL-3.0-or-later for Nocturne packaging and new repository material. The imported Ecowitt template and icon retain their original MIT license in ecowitt/LICENSE. Retain the upstream attribution in NOTICE.md. Application images are downloaded from their publishers and are not redistributed here.
