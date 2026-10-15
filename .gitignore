@@ -1,0 +1,7 @@
+**/private*/
+**/.env
+**/*.dump
+**/*.sqlite
+**/__pycache__/
+*.zip
+*.tar.gz

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Maintainer>
+  <Profile>Community Unraid DockerMan templates maintained by kevlacross. Nocturne includes four coordinated containers, preparation tools and optional automatic updates. Read each application guide before installing.</Profile>
+  <WebPage>https://github.com/kevlacross/unraid-templates</WebPage>
+  <Forum>https://github.com/kevlacross/unraid-templates/issues</Forum>
+  <Icon>https://raw.githubusercontent.com/kevlacross/unraid-templates/main/icon.svg</Icon>
+</Maintainer>

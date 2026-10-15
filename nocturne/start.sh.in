@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd -- "$(dirname -- "$0")"
+docker network inspect nocturne >/dev/null 2>&1 || docker network create nocturne >/dev/null
+if docker container inspect nocturne-postgres-server >/dev/null 2>&1; then
+  docker start nocturne-postgres-server >/dev/null
+else
+  docker run -d --name nocturne-postgres-server --network nocturne --label net.unraid.docker.managed=dockerman --label net.unraid.docker.webui=https://@BASE_DOMAIN@ --restart=unless-stopped --log-opt max-size=10m --log-opt max-file=3 --env-file=@APPDATA@/nocturne-postgres-server.env -v @APPDATA@/postgres:/var/lib/postgresql/data:rw -v @APPDATA@/00-init.sh:/docker-entrypoint-initdb.d/00-init.sh:ro postgres:17-bookworm
+fi
+for attempt in {1..180}; do
+  if docker exec nocturne-postgres-server sh -c 'PGPASSWORD="$POSTGRES_PASSWORD" psql -h 127.0.0.1 -U "$POSTGRES_USER" -d nocturne -tAc "SELECT 1 FROM pg_roles WHERE rolname = '"'"'nocturne_app'"'"'"' 2>/dev/null | grep -qx '1'; then break; fi
+  if [[ "$attempt" == 180 ]]; then echo "PostgreSQL bootstrap did not become ready" >&2; exit 1; fi
+  sleep 2
+done
+if docker container inspect nocturne-api >/dev/null 2>&1; then
+  docker start nocturne-api >/dev/null
+else
+  docker run -d --name nocturne-api --network nocturne --label net.unraid.docker.managed=dockerman --label net.unraid.docker.webui=https://@BASE_DOMAIN@ --restart=unless-stopped --log-opt max-size=10m --log-opt max-file=3 --env-file=@APPDATA@/nocturne-api.env -e BASE_DOMAIN=@BASE_DOMAIN@ ghcr.io/nightscout/nocturne/nocturne-api:0.2.7
+fi
+if docker container inspect nocturne-web >/dev/null 2>&1; then
+  docker start nocturne-web >/dev/null
+else
+  docker run -d --name nocturne-web --network nocturne --label net.unraid.docker.managed=dockerman --label net.unraid.docker.webui=https://@BASE_DOMAIN@ --restart=unless-stopped --log-opt max-size=10m --log-opt max-file=3 --env-file=@APPDATA@/nocturne-web.env -e BASE_DOMAIN=@BASE_DOMAIN@ ghcr.io/nightscout/nocturne/nocturne-web:0.2.7
+fi
+if docker container inspect nocturne-gateway >/dev/null 2>&1; then
+  docker start nocturne-gateway >/dev/null
+else
+  docker run -d --name nocturne-gateway --network nocturne --label net.unraid.docker.managed=dockerman --label net.unraid.docker.webui=https://@BASE_DOMAIN@ --restart=unless-stopped --log-opt max-size=10m --log-opt max-file=3 --env-file=@APPDATA@/nocturne-gateway.env --entrypoint=dotnet -p 1612:5000 mcr.microsoft.com/dotnet/nightly/yarp:2.3-preview /app/yarp.dll
+fi

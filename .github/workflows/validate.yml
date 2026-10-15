@@ -1,0 +1,19 @@
+name: Validate Unraid templates
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate XML, preparation and private configuration
+        run: python3 nocturne/validate.py
+      - name: Check shell syntax
+        run: bash -n nocturne/prepare.sh nocturne/auto-update.sh nocturne/start.sh.in nocturne/config/00-init.sh
+      - name: Check generated artifacts
+        run: |
+          python3 nocturne/build_templates.py
+          git diff --exit-code

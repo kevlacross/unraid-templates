@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Container version="2">
+  <Name>nocturne-web</Name>
+  <Repository>ghcr.io/nightscout/nocturne/nocturne-web:0.2.7</Repository>
+  <Registry>https://github.com/nightscout/nocturne</Registry>
+  <Network>nocturne</Network>
+  <MyIP />
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Project>https://github.com/nightscout/nocturne</Project>
+  <Support>https://github.com/kevlacross/unraid-templates/issues</Support>
+  <Overview>Step 3 of 4: Nocturne 0.2.7 web interface. Requires the Nocturne API and PostgreSQL templates. Use the gateway over HTTPS through your reverse proxy; direct web access bypasses required routing.</Overview>
+  <Category>Tools:Utilities</Category>
+  <WebUI>https://nocturne.example.com</WebUI>
+  <Icon>https://raw.githubusercontent.com/nightscout/nocturne/v0.2.7/src/Web/packages/app/static/favicon.png</Icon>
+  <TemplateURL>https://raw.githubusercontent.com/kevlacross/unraid-templates/main/templates/03-nocturne-web.xml</TemplateURL>
+  <ReadMe>https://github.com/kevlacross/unraid-templates/blob/main/nocturne/README.md</ReadMe>
+  <Requires>Run nocturne/prepare.sh before installation. Requires all four Nocturne containers, a custom Docker network named nocturne, generated private environment files and an HTTPS reverse proxy. See ReadMe.</Requires>
+  <License>AGPL-3.0-or-later</License>
+  <ExtraParams>--restart=unless-stopped --log-opt max-size=10m --log-opt max-file=3 --env-file=/mnt/user/appdata/nocturne/nocturne-web.env</ExtraParams>
+  <PostArgs />
+  <Config Name="Public hostname" Target="BASE_DOMAIN" Default="nocturne.example.com" Mode="" Description="Hostname only, without protocol or path. Must match both API and Web and your HTTPS proxy." Type="Variable" Display="always" Required="true" Mask="false">nocturne.example.com</Config>
+</Container>
