@@ -19,7 +19,7 @@ For local installation without a CA listing, follow the setup guide: it generate
 
 For template, packaging and installation issues, [open an issue](https://github.com/kevlacross/unraid-templates/issues). Application bugs belong to the relevant upstream project. This repository is community packaging and is not endorsed by Nocturne, Nightscout or Unraid.
 
-Ecowitt and Nocturne templates are consolidated here. The former Ecowitt-only template repository is retained during the CA catalog migration; the application source repository remains separate.
+Ecowitt and Nocturne templates are consolidated here. All five templates are published in Community Applications under the existing KevLaCross repository listing. The former Ecowitt-only template repository has been retired after the catalog migration; the Ecowitt application source repository remains separate.
 
 ## Validation
 
